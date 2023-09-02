@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package auth.pb;
+option go_package = "auth/api;pb";
+
+import "google/api/annotations.proto";
+
+service AuthService {
+  // auth
+  rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/authenticate"
+      body: "*"
+    };
+  };
+  // refresh token
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/refreshToken"
+      body: "*"
+    };
+  };
+  // validate token
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/validateToken"
+      body: "*"
+    };
+  };
+}
+
+
+message RefreshTokenRequest {
+  string refreshToken = 1;
+}
+
+message RefreshTokenResponse {
+  Session session = 1;
+}
+
+message AuthenticateRequest {
+  string appId = 1;
+  string username = 2;
+}
+
+message AuthenticateResponse {
+  Session session = 1;
+}
+
+message ValidateTokenRequest{
+  string jwtToken = 1;
+}
+
+message ValidateTokenResponse{
+  Session session = 1;
+}
+message Session {
+  string uid = 1;
+  string profileId = 2;
+}
