@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/gstones/moke-kit/demo/internal/client"
+	"moke/internal/auth/client"
 )
 
 var options struct {
@@ -14,14 +14,13 @@ var options struct {
 }
 
 const (
-	DefaultHost    = "localhost:8081"
-	DefaultTcpHost = "localhost:8888"
+	DefaultHost = "localhost:8081"
 )
 
 func main() {
 	rootCmd := &cobra.Command{
-		Use:     "demo",
-		Short:   "cli",
+		Use:     "shell ",
+		Short:   "auth client",
 		Aliases: []string{"cli"},
 	}
 	rootCmd.PersistentFlags().StringVar(
@@ -31,27 +30,14 @@ func main() {
 		"grpc http service (<host>:<port>)",
 	)
 
-	rootCmd.PersistentFlags().StringVar(
-		&options.tcpHost,
-		"tcp_host",
-		DefaultTcpHost,
-		"zinx service (<host>:<port>)",
-	)
-
 	sGrpc := &cobra.Command{
-		Use:   "grpc",
+		Use:   "shell",
 		Short: "Run an interactive grpc client",
 		Run: func(cmd *cobra.Command, args []string) {
-			client.RunGrpc(options.host)
+			client.RunAuthCmd(options.host)
 		},
 	}
-	sZinx := &cobra.Command{
-		Use:   "zinx",
-		Short: "Run an interactive zinx client",
-		Run: func(cmd *cobra.Command, args []string) {
-			client.RunZinx(options.tcpHost)
-		},
-	}
-	rootCmd.AddCommand(sGrpc, sZinx)
+
+	rootCmd.AddCommand(sGrpc)
 	_ = rootCmd.ExecuteContext(context.Background())
 }

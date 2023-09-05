@@ -28,33 +28,35 @@ service AuthService {
     };
   };
 }
+message AuthenticateRequest {
+  enum Platform {
+    NONE = 0;
+    WECHAT = 1;
+    GOOGLE = 2;
+  }
+  string appId = 1;
+  string username = 2;
+  Platform platform = 3;
+}
 
+message AuthenticateResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
 
 message RefreshTokenRequest {
   string refreshToken = 1;
 }
 
 message RefreshTokenResponse {
-  Session session = 1;
-}
-
-message AuthenticateRequest {
-  string appId = 1;
-  string username = 2;
-}
-
-message AuthenticateResponse {
-  Session session = 1;
+  string accessToken = 1;
+  string refreshToken = 2;
 }
 
 message ValidateTokenRequest{
-  string jwtToken = 1;
+  string accessToken = 1;
 }
 
 message ValidateTokenResponse{
-  Session session = 1;
-}
-message Session {
   string uid = 1;
-  string profileId = 2;
 }

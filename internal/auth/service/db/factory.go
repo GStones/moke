@@ -8,7 +8,7 @@ import (
 	"github.com/gstones/moke-kit/orm/nerrors"
 	"github.com/gstones/moke-kit/orm/nosql/diface"
 
-	"moke/internal/auth/db/model"
+	"moke/internal/auth/service/db/model"
 )
 
 type Database struct {
@@ -16,8 +16,8 @@ type Database struct {
 	coll   diface.ICollection
 }
 
-func OpenDatabase(l *zap.Logger, coll diface.ICollection) Database {
-	return Database{
+func OpenDatabase(l *zap.Logger, coll diface.ICollection) *Database {
+	return &Database{
 		logger: l,
 		coll:   coll,
 	}

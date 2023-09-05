@@ -1,4 +1,3 @@
-### Example user template template
 ### Example user template
 
 # IntelliJ project files
@@ -29,3 +28,4 @@ gen
 # Go workspace file
 go.work
 
+/third_party/

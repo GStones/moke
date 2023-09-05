@@ -20,10 +20,6 @@ func (d *Dao) Init(id string, doc diface.ICollection) error {
 	return nil
 }
 
-func (d *Dao) InitDefault() error {
-	return nil
-}
-
 func NewAuthModel(id string, doc diface.ICollection) (*Dao, error) {
 	dm := &Dao{}
 	if err := dm.Init(id, doc); err != nil {

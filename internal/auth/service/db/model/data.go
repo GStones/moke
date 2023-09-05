@@ -15,9 +15,11 @@ func (d *Dao) initData() {
 	d.Data = data
 }
 
-func (d *Dao) initDefaultData() {
+func (d *Dao) InitDefault() error {
 	data := createData()
 	data.Uid = utils.GenerateUUID()
+	d.Data = data
+	return nil
 }
 
 func (d *Dao) clear() {

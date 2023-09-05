@@ -1,12 +1,15 @@
 package public
 
 import (
-	"github.com/gstones/moke-kit/fxmain/pkg/mfx"
+	"github.com/gstones/moke-kit/orm/nosql/diface"
+	"github.com/gstones/moke-kit/orm/pkg/nfx"
 	"github.com/gstones/moke-kit/server/pkg/sfx"
 	"github.com/gstones/moke-kit/server/siface"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
 	mfx2 "moke/internal/auth/pkg/mfx"
+	"moke/internal/auth/service/db"
 	pb "moke/proto/gen/auth/api"
 )
 
@@ -16,6 +19,7 @@ type Service struct {
 	deployment string
 	jwtSecret  string
 	url        string
+	db         *db.Database
 }
 
 func (s *Service) RegisterWithGrpcServer(server siface.IGrpcServer) error {
@@ -25,15 +29,15 @@ func (s *Service) RegisterWithGrpcServer(server siface.IGrpcServer) error {
 
 func NewService(
 	l *zap.Logger,
-	deployment string,
 	jwtSecret string,
 	url string,
+	coll diface.ICollection,
 ) (result *Service, err error) {
 	result = &Service{
-		logger:     l,
-		deployment: deployment,
-		jwtSecret:  jwtSecret,
-		url:        url,
+		logger:    l,
+		jwtSecret: jwtSecret,
+		url:       url,
+		db:        db.OpenDatabase(l, coll),
 	}
 	return
 }
@@ -41,18 +45,22 @@ func NewService(
 var ServiceModule = fx.Provide(
 	func(
 		l *zap.Logger,
-		aSetting mfx.AppParams,
 		sSetting mfx2.AuthSettingParams,
+		dbProvider nfx.DocumentStoreParams,
 	) (out sfx.GrpcServiceResult, err error) {
-		if svc, e := NewService(
-			l,
-			aSetting.Deployment,
-			sSetting.JwtTokenSecret,
-			sSetting.AuthUrl,
-		); e != nil {
+		if coll, e := dbProvider.DriverProvider.OpenDbDriver(sSetting.AuthStoreName); e != nil {
 			err = e
 		} else {
-			out.GrpcService = svc
+			if svc, e := NewService(
+				l,
+				sSetting.JwtTokenSecret,
+				sSetting.AuthUrl,
+				coll,
+			); e != nil {
+				err = e
+			} else {
+				out.GrpcService = svc
+			}
 		}
 		return
 	},
