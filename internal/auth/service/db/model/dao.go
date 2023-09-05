@@ -7,27 +7,20 @@ import (
 
 type Dao struct {
 	nosql.DocumentBase `bson:"-"`
-	Id                 string `bson:"_id"`
-	Data               *Data  `bson:"data"`
+	Data               *Data `bson:"data"`
 }
 
-func (dm *Dao) Init(id string, doc diface.ICollection) error {
+func (d *Dao) Init(id string, doc diface.ICollection) error {
 	key, e := NewAuthKey(id)
 	if e != nil {
 		return e
 	}
-
-	dm.Data = &Data{}
-	dm.DocumentBase.Init(&dm.Data, dm.clear, doc, key)
+	d.initData()
+	d.DocumentBase.Init(&d.Data, d.clear, doc, key)
 	return nil
 }
 
-func (dm *Dao) clear() {
-	dm.Data = nil
-}
-
-func (dm *Dao) InitDefault() error {
-
+func (d *Dao) InitDefault() error {
 	return nil
 }
 

@@ -1,4 +1,4 @@
-package db_nosql
+package db
 
 import (
 	"errors"
@@ -7,6 +7,7 @@ import (
 
 	"github.com/gstones/moke-kit/orm/nerrors"
 	"github.com/gstones/moke-kit/orm/nosql/diface"
+
 	"moke/internal/auth/db/model"
 )
 
