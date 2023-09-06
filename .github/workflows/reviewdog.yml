@@ -27,7 +27,7 @@ jobs:
       - name: Setup reviewdog
         # uses: reviewdog/action-setup@v1
         run: |
-          go install github.com/reviewdog/reviewdog/cmd/reviewdog@latest
+          go install github.com/reviewdog/reviewdog/cmd/reviewdog@v0.15.0
 
       - name: Run reviewdog (github-pr-check)
         continue-on-error: true
