@@ -14,12 +14,10 @@ import (
 )
 
 type Service struct {
-	appId      string
-	logger     *zap.Logger
-	deployment string
-	jwtSecret  string
-	url        string
-	db         *db.Database
+	logger    *zap.Logger
+	jwtSecret string
+	url       string
+	db        *db.Database
 }
 
 func (s *Service) RegisterWithGrpcServer(server siface.IGrpcServer) error {
