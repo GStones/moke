@@ -87,7 +87,8 @@ func (p *AuthClient) auth(c *ishell.Context) {
 	if response, err := p.client.Authenticate(ctx, req); err != nil {
 		cshell.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: %s", response)
+		cshell.Infof(c, "Response: access %s", response.AccessToken)
+		cshell.Infof(c, "Response: refresh %s", response.RefreshToken)
 	}
 }
 
@@ -100,9 +101,9 @@ func (p *AuthClient) validate(c *ishell.Context) {
 	req := &pb2.ValidateTokenRequest{
 		AccessToken: msg,
 	}
-	md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
-	ctx := mm.MD(md).ToOutgoing(context.Background())
-	if response, err := p.client.ValidateToken(ctx, req); err != nil {
+	//md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
+	//ctx := mm.MD(md).ToOutgoing(context.Background())
+	if response, err := p.client.ValidateToken(context.TODO(), req); err != nil {
 		cshell.Warn(c, err)
 	} else {
 		cshell.Infof(c, "Response: %s", response)
@@ -119,11 +120,12 @@ func (p *AuthClient) refresh(c *ishell.Context) {
 	req := &pb2.RefreshTokenRequest{
 		RefreshToken: msg,
 	}
-	md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
-	ctx := mm.MD(md).ToOutgoing(context.Background())
-	if response, err := p.client.RefreshToken(ctx, req); err != nil {
+	//md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
+	//ctx := mm.MD(md).ToOutgoing(context.Background())
+	if response, err := p.client.RefreshToken(context.TODO(), req); err != nil {
 		cshell.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: %s", response)
+		cshell.Infof(c, "Response: refresh %s", response.RefreshToken)
+		cshell.Infof(c, "Response: access %s", response.AccessToken)
 	}
 }
