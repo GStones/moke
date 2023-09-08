@@ -6,9 +6,8 @@ require (
 	github.com/abiosoft/ishell v2.0.0+incompatible
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.1
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1
-	github.com/gstones/moke-kit v0.0.0-20230907043213-8bb58b80de2e
+	github.com/gstones/moke-kit v0.0.0-20230908041053-339e7ec09834
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
 	go.uber.org/fx v1.20.0
@@ -34,6 +33,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0-rc.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect

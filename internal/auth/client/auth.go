@@ -2,15 +2,11 @@ package client
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/abiosoft/ishell"
-	mm "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
+	"github.com/gstones/moke-kit/utility/cshell"
 	"github.com/gstones/moke-kit/utility/ugrpc"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-
-	"github.com/gstones/moke-kit/utility/cshell"
 
 	pb2 "moke/proto/gen/auth/api"
 )
@@ -82,9 +78,7 @@ func (p *AuthClient) auth(c *ishell.Context) {
 		Platform: pb2.AuthenticateRequest_WECHAT,
 	}
 
-	md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
-	ctx := mm.MD(md).ToOutgoing(context.Background())
-	if response, err := p.client.Authenticate(ctx, req); err != nil {
+	if response, err := p.client.Authenticate(context.TODO(), req); err != nil {
 		cshell.Warn(c, err)
 	} else {
 		cshell.Infof(c, "Response: access %s", response.AccessToken)
@@ -101,8 +95,6 @@ func (p *AuthClient) validate(c *ishell.Context) {
 	req := &pb2.ValidateTokenRequest{
 		AccessToken: msg,
 	}
-	//md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
-	//ctx := mm.MD(md).ToOutgoing(context.Background())
 	if response, err := p.client.ValidateToken(context.TODO(), req); err != nil {
 		cshell.Warn(c, err)
 	} else {
@@ -120,8 +112,7 @@ func (p *AuthClient) refresh(c *ishell.Context) {
 	req := &pb2.RefreshTokenRequest{
 		RefreshToken: msg,
 	}
-	//md := metadata.Pairs("authorization", fmt.Sprintf("%s %v", "bearer", "test"))
-	//ctx := mm.MD(md).ToOutgoing(context.Background())
+
 	if response, err := p.client.RefreshToken(context.TODO(), req); err != nil {
 		cshell.Warn(c, err)
 	} else {
