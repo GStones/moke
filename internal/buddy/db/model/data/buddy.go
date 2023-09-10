@@ -1,4 +1,4 @@
-package model
+package data
 
 import (
 	"sort"
@@ -53,7 +53,6 @@ func (b *Buddy) ToProto() *pb.Buddy {
 		ReceiveReward: b.ReceiveRewardNum,
 		IsFavorite:    b.IsFavorite,
 		Remark:        b.Remark,
-		FriendValue:   b.FriendValue,
 	}
 }
 
@@ -109,7 +108,6 @@ func NewBuddyQueue(uid string) *BuddyQueue {
 		Uid:             uid,
 		Buddies:         make(map[string]*Buddy),
 		BlockedProfiles: make(map[string]*BlockedProfile),
-		RecentMet:       make([]*RecentProfile, 0),
 		Inviters:        make(map[string]*Inviter),
 		InviterSends:    make(map[string]*Inviter),
 		Settings: &BuddySettings{
@@ -121,7 +119,6 @@ func (bq *BuddyQueue) Clear() {
 	bq.Buddies = make(map[string]*Buddy)
 	bq.Inviters = make(map[string]*Inviter)
 	bq.InviterSends = make(map[string]*Inviter)
-	bq.RecentMet = make([]*RecentProfile, 0)
 	bq.BlockedProfiles = make(map[string]*BlockedProfile)
 	bq.Settings = &BuddySettings{
 		AllowToBeAdded: true,

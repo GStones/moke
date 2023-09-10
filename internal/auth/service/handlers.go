@@ -2,10 +2,10 @@ package public
 
 import (
 	"context"
+	"moke/internal/auth/service/utils"
 
 	"github.com/pkg/errors"
 
-	"moke/internal/auth/utils"
 	pb "moke/proto/gen/auth/api"
 )
 

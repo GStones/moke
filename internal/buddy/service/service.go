@@ -1,4 +1,4 @@
-package public
+package service
 
 import (
 	"github.com/gstones/moke-kit/mq/logic"
@@ -9,8 +9,7 @@ import (
 	"github.com/gstones/moke-kit/server/siface"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
-
-	"moke/internal/buddy/internal/db"
+	"moke/internal/buddy/db"
 	"moke/internal/buddy/pkg/bfx"
 	pb "moke/proto/gen/buddy/api"
 )
@@ -42,16 +41,11 @@ func NewService(
 }
 
 func (s *Service) RegisterWithGrpcServer(server siface.IGrpcServer) error {
-	pb.RegisterPublicServiceServer(server.GrpcServer(), s)
+	pb.RegisterBuddyServiceServer(server.GrpcServer(), s)
 	return nil
 }
 
-func (s *Service) loadBuddyQueueFromContext(uid string) (bq *db.BuddyQueue, err error) {
-	bq, err = s.db.LoadOrCreateBuddyQueue("", uid)
-	return
-}
-
-var ServiceModule = fx.Provide(
+var Module = fx.Provide(
 	func(
 		l *zap.Logger,
 		dProvider nfx.DocumentStoreParams,

@@ -6,20 +6,15 @@ option go_package = "buddy/api;buddy";
 import "buddy/buddy_common.proto";
 
 // PublicService is a public service for managing buddies for the current user.
-service PublicService {
+service BuddyService {
   // AddBuddy adds a buddy to the current user's queue.
-  // The requested buddy must accept via ReplyAddBuddy to fulfill the request.
   rpc AddBuddy (AddBuddyRequest) returns (AddBuddyResponse);
 
   // RemoveBuddy removes a buddy from the current user's queue.
-  // No corresponding acknowledgement is needed from the removed buddy.
   rpc RemoveBuddy (RemoveBuddyRequest) returns (Nothing);
 
   // GetBuddies returns the current user's buddies.
   rpc GetBuddies (Nothing) returns (Buddies);
-
-  // GetBuddies returns the current user's buddies.
-  rpc IsInvited (IsInvitedRequest) returns (IsInvitedResponse);
 
   // ReplyAddBuddy is called to accept or reject a buddy add request.
   rpc ReplyAddBuddy (ReplyAddBuddyRequest) returns (ReplyAddBuddyResponse);
@@ -31,9 +26,6 @@ service PublicService {
   // Remark adds a buddy remark.
   rpc Remark (RemarkRequest) returns (Nothing);
 
-  // UpdateBuddySettings is called to update the current user's settings of buddy module.
-  rpc UpdateBuddySettings (UpdateBuddySettingsRequest) returns (Nothing);
-
   //---------------------------------------------Blocked List Start------------------------------------
   // GetBlockedUsers returns the current user's blocked users.
   rpc GetBlockedProfiles (Nothing) returns (ProfileIds);
@@ -44,28 +36,8 @@ service PublicService {
   //RemoveBlockedUsers is called to remove users to self's buddy list or blocked list
   rpc RemoveBlockedProfiles (ProfileIds) returns (Nothing);
   //---------------------------------------------Blocked List End---------------------------------------
-
-  //---------------------------------------------RecentMet Start----------------------------------------
-  //AddToRecentMet  add player to user's recentMet. player self will be filtered
-  rpc AddToRecentMet (ProfileIds) returns (Nothing);
-
-  //---------------------------------------------RecentMet End-------------------------------------------
-
-  // LikeBuddyRequest is used to request a user be liked as a buddy.
-  rpc StarBuddy (StarBuddyRequest) returns (Nothing);
-
-  // FavoriteBuddyRequest is used to request a user be favorited as a buddy.
-  rpc FavoriteBuddy (FavoriteBuddyRequest) returns (Nothing);
-
-  // CollectBuddyReward
-  rpc CollectBuddyReward (ProfileIds) returns (CollectBuddyRewardResponse);
 }
 
-// RemarkRequest is used to send a remark to a buddy.
-message RemarkRequest {
-  string uid = 1;
-  string remark = 2;
-}
 
 // AddBuddyRequest is used to request a user be added as a buddy.
 message AddBuddyRequest {
@@ -76,20 +48,18 @@ message AddBuddyResponse{
   repeated string failed = 1;
 }
 
-// IsInvitedRequest is used to request a user be invited as a buddy.
-message IsInvitedRequest {
-  string uid = 1;
-}
-
-// IsInvitedResponse is used to respond a user be invited as a buddy.
-message IsInvitedResponse {
-  bool isInvited = 1;
-}
-
 //RemoveBuddyRequest is used to request a user be removed as a buddy.
 message RemoveBuddyRequest {
   string uid = 1;
 }
+
+// RemarkRequest is used to send a remark to a buddy.
+message RemarkRequest {
+  string uid = 1;
+  string remark = 2;
+}
+
+
 
 // ReplyAddBuddyRequest is used to respond to (accept or reject) a buddy add request.
 message ReplyAddBuddyRequest {
@@ -104,10 +74,6 @@ message ReplyAddBuddyResponse {
   repeated string failed = 1;
 }
 
-message UpdateBuddySettingsRequest {
-  bool allowToBeAdded = 1;
-}
-
 message BuddyChanges{
   repeated Buddy added = 1;
   repeated Inviter inviterAdded = 2;
@@ -115,20 +81,7 @@ message BuddyChanges{
   repeated Buddy rewardUpdate = 4;
 }
 
-message CollectBuddyRewardResponse {
-  int32 num = 1;
-}
 
 message IsBlockedResponse{
   bool isBlocked = 1;
-}
-
-message StarBuddyRequest {
-  repeated string uid = 1;
-  int32 friendValue = 2;
-}
-
-message FavoriteBuddyRequest {
-  repeated string uid = 1;
-  bool isFavorite = 2;
 }

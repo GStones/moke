@@ -12,7 +12,7 @@ type BuddySettings struct {
 	InviterMaxCount int32  `name:"InviterMaxCount"`
 	BuddyMaxCount   int32  `name:"BuddyMaxCount"`
 	BlockedMaxCount int32  `name:"BlockedMaxCount"`
-	Name            string `name:"Uid"`
+	Name            string `name:"Name"`
 }
 
 type BuddySettingsLoader struct {
@@ -22,7 +22,7 @@ type BuddySettingsLoader struct {
 	BuddyMaxCount   int32  `name:"BuddyMaxCount" envconfig:"BUDDY_MAX_COUNT" default:"100"`
 	BlockedMaxCount int32  `name:"BlockedMaxCount" envconfig:"BLOCKED_MAX_COUNT" default:"100"`
 	InviterMaxCount int32  `name:"InviterMaxCount" envconfig:"INVITER_MAX_COUNT" default:"20"`
-	Name            string `name:"Uid" envconfig:"NAME" default:"buddy"`
+	Name            string `name:"Name" envconfig:"NAME" default:"buddy"`
 }
 
 func (g *BuddySettingsLoader) LoadFromEnv() (err error) {
