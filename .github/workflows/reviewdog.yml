@@ -6,26 +6,6 @@ on:
   pull_request:
 
 jobs:
-  reviewdog-pr:
-    permissions:
-      checks: write
-      contents: read
-      pull-requests: write
-    if: github.event_name == 'pull_request'
-    name: reviewdog on Pull Request
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-go@v4
-        with:
-          go-version-file: "go.mod"
-
-      - name: Setup reviewdog
-        # uses: reviewdog/action-setup@v1
-        run: |
-          go install github.com/reviewdog/reviewdog/cmd/reviewdog@v0.14.2
-
   staticcheck:
     permissions:
       checks: write
