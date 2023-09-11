@@ -5,21 +5,20 @@ import (
 	"github.com/gstones/moke-kit/utility/cshell"
 )
 
-func RunAuthCmd(url string) {
+func RunBuddyCmd(url string) {
 	sh := ishell.New()
-	cshell.Info(sh, "interactive auth connect to "+url)
+	cshell.Info(sh, "interactive buddy connect to "+url)
 
-	if authCmd, err := NewAuthClient(url); err != nil {
+	if buddyCmd, err := NewBuddyClient(url); err != nil {
 		cshell.Die(sh, err)
-		return
 	} else {
-		sh.AddCmd(authCmd.GetCmd())
+		sh.AddCmd(buddyCmd.GetCmd())
 		sh.Interrupt(func(c *ishell.Context, count int, input string) {
 			if count >= 2 {
 				c.Stop()
 			}
 			if count == 1 {
-				err := authCmd.Close()
+				err := buddyCmd.Close()
 				if err != nil {
 					cshell.Die(c, err)
 				}

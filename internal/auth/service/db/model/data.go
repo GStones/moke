@@ -1,6 +1,8 @@
 package model
 
-import "moke/internal/auth/utils"
+import (
+	"moke/internal/auth/service/utils"
+)
 
 type Data struct {
 	Uid string `json:"uid" bson:"uid"`
