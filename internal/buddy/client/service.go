@@ -11,7 +11,6 @@ func RunBuddyCmd(url string) {
 
 	if buddyCmd, err := NewBuddyClient(url); err != nil {
 		cshell.Die(sh, err)
-		return
 	} else {
 		sh.AddCmd(buddyCmd.GetCmd())
 		sh.Interrupt(func(c *ishell.Context, count int, input string) {

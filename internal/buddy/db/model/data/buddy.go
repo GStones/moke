@@ -16,8 +16,8 @@ const (
 )
 
 type Buddy struct {
-	// The Uid for a specific buddy.
-	Uid string
+	// The UID for a specific buddy.
+	UID string
 	// Timestamp (UTC) when request add buddy was send.
 	ActTime int64
 	// The Remark for buddy.
@@ -31,8 +31,8 @@ type Buddy struct {
 }
 
 type Inviter struct {
-	// The Uid for a specific buddy.
-	Uid string
+	// The UID for a specific buddy.
+	UID string
 	// Timestamp (UTC) when request add buddy was send.
 	ReqTime int64
 	// Request add buddy text.
@@ -41,7 +41,7 @@ type Inviter struct {
 
 func (i *Inviter) ToProto() *pb.Inviter {
 	return &pb.Inviter{
-		Uid:     i.Uid,
+		Uid:     i.UID,
 		ReqInfo: i.ReqInfo,
 		ReqTime: i.ReqTime,
 	}
@@ -49,7 +49,7 @@ func (i *Inviter) ToProto() *pb.Inviter {
 
 func (b *Buddy) ToProto() *pb.Buddy {
 	return &pb.Buddy{
-		Uid:           b.Uid,
+		Uid:           b.UID,
 		ReceiveReward: b.ReceiveRewardNum,
 		IsFavorite:    b.IsFavorite,
 		Remark:        b.Remark,
@@ -73,7 +73,7 @@ func (b *Buddy) UnFavorite() {
 }
 func NewInviter(uid string, text string, time int64) *Inviter {
 	return &Inviter{
-		Uid:     uid,
+		UID:     uid,
 		ReqTime: time,
 		ReqInfo: text,
 	}
@@ -81,7 +81,7 @@ func NewInviter(uid string, text string, time int64) *Inviter {
 
 func NewBuddy(uid string, remark string, time int64) *Buddy {
 	return &Buddy{
-		Uid:     uid,
+		UID:     uid,
 		ActTime: time,
 		Remark:  remark,
 	}
@@ -127,11 +127,11 @@ func (bq *BuddyQueue) Clear() {
 
 // AddBuddy Add a new buddy instance to the queue.
 func (bq *BuddyQueue) AddBuddy(f *Buddy) {
-	bq.Buddies[f.Uid] = f
+	bq.Buddies[f.UID] = f
 }
 
 func (bq *BuddyQueue) AddInviter(f *Inviter) {
-	bq.Inviters[f.Uid] = f
+	bq.Inviters[f.UID] = f
 }
 
 func (bq *BuddyQueue) GetInviterNum() int32 {
@@ -159,7 +159,7 @@ func (bq *BuddyQueue) GetSortedInviters() []string {
 	})
 	res := make([]string, 0)
 	for _, v := range inviters {
-		res = append(res, v.Uid)
+		res = append(res, v.UID)
 	}
 	return res
 }
@@ -230,7 +230,7 @@ func (bq *BuddyQueue) ClearRewardNum() (int32, []string) {
 		if v.ReceiveRewardNum > 0 {
 			res += v.ReceiveRewardNum
 			v.ReceiveRewardNum = 0
-			ids = append(ids, v.Uid)
+			ids = append(ids, v.UID)
 		}
 	}
 	return res, ids

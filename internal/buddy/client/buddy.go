@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	mm "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
-	"google.golang.org/grpc/metadata"
-	buddy "moke/proto/gen/buddy/api"
-
 	"github.com/abiosoft/ishell"
+	mm "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
 	"github.com/gstones/moke-kit/utility/cshell"
 	"github.com/gstones/moke-kit/utility/ugrpc"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
+
+	buddy "moke/proto/gen/buddy/api"
 )
 
 type BuddyClient struct {

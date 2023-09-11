@@ -2,9 +2,11 @@ package db
 
 import (
 	"errors"
+
 	"github.com/gstones/moke-kit/orm/nerrors"
 	"github.com/gstones/moke-kit/orm/nosql/diface"
 	"go.uber.org/zap"
+
 	"moke/internal/auth/service/db/model"
 )
 
@@ -38,17 +40,21 @@ func (d *Database) CreateBuddyQueue(id string) error {
 	return nil
 }
 
-func (d *Database) LoadOrCreateBuddyQueue(id string) (bq *model.Dao, err error) {
-	if bq, err = d.NewBuddyQueue(id); err != nil {
-		return
-	} else if err = bq.Load(); errors.Is(err, nerrors.ErrKeyNotFound) {
-		if bq, err = d.NewBuddyQueue(id); err != nil {
-			return
+func (d *Database) LoadOrCreateBuddyQueue(id string) (*model.Dao, error) {
+	if bq, err := d.NewBuddyQueue(id); err != nil {
+		return nil, err
+	} else if err := bq.Load(); errors.Is(err, nerrors.ErrKeyNotFound) {
+		if bq, err := d.NewBuddyQueue(id); err != nil {
+			return nil, err
 		} else if err := bq.InitDefault(); err != nil {
 			return nil, err
-		} else if err = bq.Create(); err != nil {
+		} else if err := bq.Create(); err != nil {
 			err = bq.Load()
+		} else {
+			return bq, err
 		}
+	} else {
+		return bq, nil
 	}
-	return
+	return nil, nil
 }
