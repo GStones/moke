@@ -92,7 +92,7 @@ type BuddySettings struct {
 }
 
 type BuddyQueue struct {
-	Uid      string
+	UID      string
 	Nickname string
 
 	Buddies         map[string]*Buddy
@@ -105,7 +105,7 @@ type BuddyQueue struct {
 
 func NewBuddyQueue(uid string) *BuddyQueue {
 	return &BuddyQueue{
-		Uid:             uid,
+		UID:             uid,
 		Buddies:         make(map[string]*Buddy),
 		BlockedProfiles: make(map[string]*BlockedProfile),
 		Inviters:        make(map[string]*Inviter),

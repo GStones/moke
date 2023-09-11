@@ -19,18 +19,3 @@ func (bq *BuddyQueue) DeleteRecentProfiles(ids ...string) {
 		}
 	}
 }
-
-func (bq *BuddyQueue) removeDuplicatesInOrder(profiles []*RecentProfile) []*RecentProfile {
-	if len(profiles) <= 0 {
-		return nil
-	}
-	checks := make(map[string]bool)
-	result := make([]*RecentProfile, 0)
-	for _, v := range profiles {
-		if ok := checks[v.ID]; !ok {
-			checks[v.ID] = true
-			result = append(result, v)
-		}
-	}
-	return result
-}

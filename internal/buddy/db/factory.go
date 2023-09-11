@@ -49,7 +49,9 @@ func (d *Database) LoadOrCreateBuddyQueue(id string) (*model.Dao, error) {
 		} else if err := bq.InitDefault(); err != nil {
 			return nil, err
 		} else if err := bq.Create(); err != nil {
-			err = bq.Load()
+			if err = bq.Load(); err != nil {
+				return nil, err
+			}
 		} else {
 			return bq, err
 		}
@@ -57,4 +59,5 @@ func (d *Database) LoadOrCreateBuddyQueue(id string) (*model.Dao, error) {
 		return bq, nil
 	}
 	return nil, nil
+
 }
