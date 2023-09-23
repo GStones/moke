@@ -4,6 +4,7 @@ import (
 	"github.com/gstones/moke-kit/orm/nerrors"
 	"github.com/gstones/moke-kit/orm/nosql"
 	"github.com/gstones/moke-kit/orm/nosql/diface"
+
 	"moke/internal/buddy/db/model/data"
 )
 

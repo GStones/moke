@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/gstones/moke-kit/mq/logic"
+	"github.com/gstones/moke-kit/mq/miface"
 	"github.com/gstones/moke-kit/mq/pkg/qfx"
 	"github.com/gstones/moke-kit/orm/nosql/diface"
 	"github.com/gstones/moke-kit/orm/pkg/nfx"
@@ -9,6 +9,7 @@ import (
 	"github.com/gstones/moke-kit/server/siface"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
 	"moke/internal/buddy/db"
 	"moke/internal/buddy/pkg/bfx"
 	pb "moke/proto/gen/buddy/api"
@@ -17,7 +18,7 @@ import (
 type Service struct {
 	logger     *zap.Logger
 	db         *db.Database
-	mq         logic.MessageQueue
+	mq         miface.MessageQueue
 	maxInviter int32
 	maxBuddies int32
 	maxBlocked int32
@@ -26,7 +27,7 @@ type Service struct {
 func NewService(
 	l *zap.Logger,
 	coll diface.ICollection,
-	mq logic.MessageQueue,
+	mq miface.MessageQueue,
 	setting bfx.BuddySettings,
 ) (result *Service, err error) {
 	result = &Service{
