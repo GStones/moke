@@ -98,10 +98,10 @@ github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0 h1:2cz5kSrxzMYHiWOBbKj8it
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0/go.mod h1:w9Y7gY31krpLmrVU5ZPG9H7l9fZuRu5/3R3S3FMtVQ4=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1 h1:LSsiG61v9IzzxMkqEr6nrix4miJI62xlRjwT7BYD2SM=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1/go.mod h1:Hbb13e3/WtqQ8U5hLGkek9gJvBLasHuPFI0UEGfnQ10=
-github.com/gstones/moke-kit v0.0.0-20230907043213-8bb58b80de2e h1:2P3DGn/d9MO2Uo8TotcFyjfrFEz/83htCI+j8NOVVAM=
-github.com/gstones/moke-kit v0.0.0-20230907043213-8bb58b80de2e/go.mod h1:izzOUHLLDUFfhI4gStV4VOoy7XkjFQONgUc/TJbRXD4=
-github.com/gstones/moke-kit v0.0.0-20230908041053-339e7ec09834 h1:A8A/2zYykne+bz057mgfXY1JDQyTQP8opZcaRsHAUOs=
-github.com/gstones/moke-kit v0.0.0-20230908041053-339e7ec09834/go.mod h1:Y1GbTgXYZNp7/0zbyr23VtmFFpY7AVloKHT7xTf7Cro=
+github.com/gstones/moke-kit v0.0.0-20230908131134-303b75ef0c99 h1:bFhe19K0ztmm1xgGpzjV1FM1VqeJAGR6rEXz6VrTDpI=
+github.com/gstones/moke-kit v0.0.0-20230908131134-303b75ef0c99/go.mod h1:Y1GbTgXYZNp7/0zbyr23VtmFFpY7AVloKHT7xTf7Cro=
+github.com/gstones/moke-kit v0.0.0-20230923124745-dbd083f1ad0d h1:6iKUA72oaWGvZTShs98uOFqEqM6X8sYEIJSNFFppy5Q=
+github.com/gstones/moke-kit v0.0.0-20230923124745-dbd083f1ad0d/go.mod h1:KTqBsjfo834nXQvtXhwKDpFUw+S91l394lijLDHdT88=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/errwrap v1.1.0 h1:OxrOeh75EUXMY8TBjag2fzXGZ40LB6IKw45YeGUDY2I=
 github.com/hashicorp/errwrap v1.1.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=

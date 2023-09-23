@@ -4,8 +4,6 @@ import (
 	"context"
 
 	"github.com/spf13/cobra"
-
-	"moke/internal/buddy/client"
 )
 
 var options struct {
@@ -34,7 +32,6 @@ func main() {
 		Use:   "shell",
 		Short: "Run an interactive grpc client",
 		Run: func(cmd *cobra.Command, args []string) {
-			client.RunBuddyCmd(options.host)
 		},
 	}
 
