@@ -1,7 +1,7 @@
 package cfx
 
 import (
-	"github.com/gstones/moke-kit/utility/uconfig"
+	"github.com/gstones/moke-kit/utility"
 	"go.uber.org/fx"
 )
 
@@ -18,7 +18,7 @@ type ChatSettingResult struct {
 }
 
 func (l *ChatSettingResult) LoadFromEnv() (err error) {
-	err = uconfig.Load(l)
+	err = utility.Load(l)
 	return
 }
 

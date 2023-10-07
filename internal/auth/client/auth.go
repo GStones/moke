@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/abiosoft/ishell"
-	"github.com/gstones/moke-kit/utility/cshell"
-	"github.com/gstones/moke-kit/utility/ugrpc"
+	"github.com/gstones/moke-kit/logging/slogger"
+	"github.com/gstones/moke-kit/utility"
 	"google.golang.org/grpc"
 
 	pb2 "moke/proto/gen/auth/api"
@@ -18,7 +18,7 @@ type AuthClient struct {
 }
 
 func NewAuthClient(host string) (*AuthClient, error) {
-	if conn, err := ugrpc.DialWithOptions(host, false); err != nil {
+	if conn, err := utility.DialWithOptions(host, false); err != nil {
 		return nil, err
 	} else {
 		cmd := &ishell.Cmd{
@@ -70,8 +70,8 @@ func (p *AuthClient) auth(c *ishell.Context) {
 	c.ShowPrompt(false)
 	defer c.ShowPrompt(true)
 
-	cshell.Info(c, "Enter username...")
-	msg := cshell.ReadLine(c, "username: ")
+	slogger.Info(c, "Enter username...")
+	msg := slogger.ReadLine(c, "username: ")
 	req := &pb2.AuthenticateRequest{
 		Username: msg,
 		AppId:    "test",
@@ -79,10 +79,10 @@ func (p *AuthClient) auth(c *ishell.Context) {
 	}
 
 	if response, err := p.client.Authenticate(context.TODO(), req); err != nil {
-		cshell.Warn(c, err)
+		slogger.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: access %s", response.AccessToken)
-		cshell.Infof(c, "Response: refresh %s", response.RefreshToken)
+		slogger.Infof(c, "Response: access %s", response.AccessToken)
+		slogger.Infof(c, "Response: refresh %s", response.RefreshToken)
 	}
 }
 
@@ -90,15 +90,15 @@ func (p *AuthClient) validate(c *ishell.Context) {
 	c.ShowPrompt(false)
 	defer c.ShowPrompt(true)
 
-	cshell.Info(c, "Enter token...")
-	msg := cshell.ReadLine(c, "token: ")
+	slogger.Info(c, "Enter token...")
+	msg := slogger.ReadLine(c, "token: ")
 	req := &pb2.ValidateTokenRequest{
 		AccessToken: msg,
 	}
 	if response, err := p.client.ValidateToken(context.TODO(), req); err != nil {
-		cshell.Warn(c, err)
+		slogger.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: %s", response)
+		slogger.Infof(c, "Response: %s", response)
 	}
 }
 
@@ -106,17 +106,17 @@ func (p *AuthClient) refresh(c *ishell.Context) {
 	c.ShowPrompt(false)
 	defer c.ShowPrompt(true)
 
-	cshell.Info(c, "Enter refresh token...")
-	msg := cshell.ReadLine(c, "refresh token: ")
+	slogger.Info(c, "Enter refresh token...")
+	msg := slogger.ReadLine(c, "refresh token: ")
 
 	req := &pb2.RefreshTokenRequest{
 		RefreshToken: msg,
 	}
 
 	if response, err := p.client.RefreshToken(context.TODO(), req); err != nil {
-		cshell.Warn(c, err)
+		slogger.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: refresh %s", response.RefreshToken)
-		cshell.Infof(c, "Response: access %s", response.AccessToken)
+		slogger.Infof(c, "Response: refresh %s", response.RefreshToken)
+		slogger.Infof(c, "Response: access %s", response.AccessToken)
 	}
 }

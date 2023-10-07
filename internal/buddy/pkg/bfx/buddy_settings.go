@@ -1,7 +1,7 @@
 package bfx
 
 import (
-	"github.com/gstones/moke-kit/utility/uconfig"
+	"github.com/gstones/moke-kit/utility"
 	"go.uber.org/fx"
 )
 
@@ -26,7 +26,7 @@ type BuddySettingsLoader struct {
 }
 
 func (g *BuddySettingsLoader) LoadFromEnv() (err error) {
-	err = uconfig.Load(g)
+	err = utility.Load(g)
 	return
 }
 

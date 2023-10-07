@@ -6,8 +6,8 @@ import (
 
 	"github.com/abiosoft/ishell"
 	mm "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
-	"github.com/gstones/moke-kit/utility/cshell"
-	"github.com/gstones/moke-kit/utility/ugrpc"
+	"github.com/gstones/moke-kit/logging/slogger"
+	"github.com/gstones/moke-kit/utility"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
@@ -21,7 +21,7 @@ type BuddyClient struct {
 }
 
 func NewBuddyClient(host string) (*BuddyClient, error) {
-	if conn, err := ugrpc.DialWithOptions(host, false); err != nil {
+	if conn, err := utility.DialWithOptions(host, false); err != nil {
 		return nil, err
 	} else {
 		cmd := &ishell.Cmd{
@@ -61,8 +61,8 @@ func (p *BuddyClient) add(c *ishell.Context) {
 	c.ShowPrompt(false)
 	defer c.ShowPrompt(true)
 
-	cshell.Info(c, "Enter buddy name...")
-	msg := cshell.ReadLine(c, "buddy name: ")
+	slogger.Info(c, "Enter buddy name...")
+	msg := slogger.ReadLine(c, "buddy name: ")
 	req := &buddy.AddBuddyRequest{
 		Uid:     []string{msg},
 		ReqInfo: "test",
@@ -72,9 +72,9 @@ func (p *BuddyClient) add(c *ishell.Context) {
 	ctx := mm.MD(md).ToOutgoing(context.Background())
 
 	if response, err := p.client.AddBuddy(ctx, req); err != nil {
-		cshell.Warn(c, err)
+		slogger.Warn(c, err)
 	} else {
-		cshell.Infof(c, "Response: %s", response)
+		slogger.Infof(c, "Response: %s", response)
 	}
 
 }

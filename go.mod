@@ -9,13 +9,13 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1
-	github.com/gstones/moke-kit v0.0.0-20230923124745-dbd083f1ad0d
+	github.com/gstones/moke-kit v0.0.0-20230928102202-cc1c8f6de125
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
 	go.uber.org/fx v1.20.0
-	go.uber.org/zap v1.25.0
+	go.uber.org/zap v1.26.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230822172742-b8732ec3820d
-	google.golang.org/grpc v1.58.0
+	google.golang.org/grpc v1.58.2
 	google.golang.org/protobuf v1.31.0
 )
 
