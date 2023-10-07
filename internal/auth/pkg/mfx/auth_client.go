@@ -1,7 +1,7 @@
 package mfx
 
 import (
-	"github.com/gstones/moke-kit/utility/ugrpc"
+	"github.com/gstones/moke-kit/utility"
 	"go.uber.org/fx"
 
 	pb "moke/proto/gen/auth/api"
@@ -20,7 +20,7 @@ type AuthClientResult struct {
 }
 
 func NewAuthClient(host string) (pb.AuthServiceClient, error) {
-	if conn, err := ugrpc.DialWithOptions(host, false); err != nil {
+	if conn, err := utility.DialWithOptions(host, false); err != nil {
 		return nil, err
 	} else {
 		return pb.NewAuthServiceClient(conn), nil
